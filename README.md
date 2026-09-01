@@ -37,7 +37,7 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 int main()
 {
-    char plain[100], key[100], cipher[100];
+    char plain[100], key[100], cipher[100], decrypted[100];
     int i, len, keyLen;
 
     printf("Enter Plain Text: ");
@@ -49,17 +49,40 @@ int main()
     len = strlen(plain);
     keyLen = strlen(key);
 
+    /* Convert plaintext and key to uppercase */
     for(i = 0; i < len; i++)
     {
         plain[i] = toupper(plain[i]);
-        key[i % keyLen] = toupper(key[i % keyLen]);
+    }
 
-        cipher[i] = ((plain[i] - 'A') + (key[i % keyLen] - 'A')) % 26 + 'A';
+    for(i = 0; i < keyLen; i++)
+    {
+        key[i] = toupper(key[i]);
+    }
+
+    /* ENCRYPTION */
+    for(i = 0; i < len; i++)
+    {
+        cipher[i] =
+        ((plain[i] - 'A') + (key[i % keyLen] - 'A'))
+        % 26 + 'A';
     }
 
     cipher[len] = '\0';
 
-    printf("Cipher Text : %s\n", cipher);
+    printf("\nCipher Text: %s\n", cipher);
+
+    /* DECRYPTION */
+    for(i = 0; i < len; i++)
+    {
+        decrypted[i] =
+        ((cipher[i] - 'A') - (key[i % keyLen] - 'A')
+        + 26) % 26 + 'A';
+    }
+
+    decrypted[len] = '\0';
+
+    printf("Decrypted Plain Text: %s\n", decrypted);
 
     return 0;
 }
@@ -67,7 +90,7 @@ int main()
 
 ## OUTPUT
 
-![alt text](c4.png)
+<img width="745" height="236" alt="image" src="https://github.com/user-attachments/assets/ea369df9-eabc-492b-a4c2-1a67ed359352" />
 
 ## RESULT
 Thus To implement the Vigenere Cipher substitution technique using C program is excuted successfully.
